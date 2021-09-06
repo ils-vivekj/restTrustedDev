@@ -6,15 +6,11 @@ import '../../node_modules/react-linechart/dist/styles.css';
 
 export const Footer=({campaigns,candidates})=>{
 
-// Sample code start
-// let
-
 
 let colorArr=['red','green', 'blue', 'yellow', 'grey'] ;
 let campaignArr;
 for(let j=0; j<campaigns.length;j++){
-    let campCadidate=candidates.filter(cand=>cand.campaignId===campaigns[j].id);
-    // alert(campCadidate.length);
+    let campCadidate=candidates.filter(cand=>cand.campaign_id===campaigns[j].id);
     let camCandArray;
     for(let i=0; i<campCadidate.length ;i++ ){
         if(camCandArray){
@@ -42,24 +38,18 @@ for(let j=0; j<campaigns.length;j++){
         }
     }
 }
-console.log(campaignArr);
-
-// console.log(campaignArr[0].points);
-// console.log(campaignArr[1].points);
-// console.log(campaignArr[2].points);
 
 let graphData;
+if(campaignArr){
 for(let p=0;p<campaignArr.length;p++){
     if(graphData){
         graphData.push({color:colorArr[p] ,points:campaignArr[p].points });
     }else{
         graphData=[{color:colorArr[p] ,points:campaignArr[p].points }];
     }
-}
-console.log(graphData);
-//Sample code end
-
-    //console.log(arr1);
+}}
+console.log('This is graph Data',graphData);
+console.log('This is campaignArr',campaignArr);
     const data = [
         {									
             color: "blue", 
@@ -74,9 +64,9 @@ console.log(graphData);
     return(
         <Navbar>
                 <div className="App">
-                    <LineChart yMin={0} isDate={isDate} height={200} showLegends={true} xMin='2021-01-01' xMax='2021-12-31'
+                    {/* <LineChart yMin={0} isDate={isDate} height={200} showLegends={true} xMin='2021-01-01' xMax='2021-12-31'
                         data={graphData}
-                    />
+                    /> */}
                 </div>				
         </Navbar>
     );

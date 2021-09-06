@@ -7,8 +7,8 @@ import { Container } from "react-bootstrap";
          return(
                  <Container >
                <div onClick={()=>{filterCandidates(campaign.id)} }>
-                       <div>{campaign.cName}</div><div>{campaign.date}</div>
-                       <p>{campaign.cDetails}</p>
+                       <div>{campaign.name}</div><div>{campaign.creation_date}</div>
+                       <p>{campaign.description}</p>
                </div>
                </Container>
          );

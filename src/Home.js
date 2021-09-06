@@ -7,8 +7,8 @@ import {LPanel} from "./component/LPanel";
 //import  LPanel  from "./component/LPanel";
 import { RPanel } from "./component/RPanel";
 // import { useState } from 'react';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+/*
 const campaigns=[
   {
       id: 1,
@@ -51,8 +51,8 @@ const campaigns=[
       candidateId: [5,6],
       status:'Archived'    
   }
-];
-
+]; */
+/*
 const candidates=[
   {
       id:1,
@@ -152,7 +152,7 @@ const candidates=[
 
   }
 
-]
+] */
 
 const Styles1 = styled.div`
   .container {
@@ -166,15 +166,48 @@ const homeClicked=true;
  export const Home=()=>{
   //  alert('1');
 
-   const [cadidateList, setCadidateList]= useState(candidates);
+//    const [cadidateList, setCadidateList]= useState(candidates);
+    // let candidates=[];
+    const [candidates, setCandidates]= useState([]);
+    const [cadidateList, setCadidateList]= useState(candidates);
+   const [campaigns, setCampaigns]= useState([]);
+    // const [cadidateList, setCadidateList]= useState([]);
+    useEffect(() => {
+        const fetchAllCampaign=async()=>{ 
+            const res=await fetch('http://127.0.0.1:4000/getCampigns');
+            const resCampaign=await res.json();
+            setCampaigns(resCampaign);
+            // console.log(resCampaign);
+           
+        }
+
+        const fetchAllCandidate=async()=>{ 
+            const res=await fetch('http://127.0.0.1:4000/getAllCandidates');
+            const resCandidates=await res.json();
+            setCandidates(resCandidates);
+            setCadidateList(resCandidates);
+            // console.log(resCandidates);
+           
+        }
+        fetchAllCandidate();
+        fetchAllCampaign();
+    }, [])
+
+
+
+
    const filterCandidates=(campaiinId)=>{
-      console.log(campaiinId);
+    //   console.log(campaiinId);
       if(campaiinId){
-        let newCandidateList=candidates.filter(cand=>cand.campaignId===campaiinId);
-        console.log(newCandidateList);
+        //   console.log(candidates);
+        let newCandidateList=candidates.filter(cand=>cand.campaign_id===campaiinId);
+        // let newCandidateList=cadidateList.filter(cand=>cand.campaignId===campaiinId);
+        // console.log(newCandidateList);
+        // console.log(newCandidateList);
         setCadidateList(newCandidateList);
       }else{
         setCadidateList(candidates);
+        // setCadidateList(cadidateList);
       }
       
    }
@@ -193,7 +226,8 @@ const homeClicked=true;
     <Row>
         <Col>
         <Container>
-            <Footer campaigns={campaigns} candidates={candidates}/>
+            {/* <Footer campaigns={campaigns} candidates={candidates}/> */}
+            <Footer campaigns={campaigns} candidates={cadidateList}/>
             </Container>
         </Col>        
     </Row>
